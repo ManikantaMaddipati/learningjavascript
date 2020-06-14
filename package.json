@@ -1,0 +1,12 @@
+{
+  "name": "learningjavascript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "assert-lib.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
