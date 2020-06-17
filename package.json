@@ -6,9 +6,17 @@
   "scripts": {
     "test": "jest"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "7.1.5",
+    "@babel/plugin-proposal-class-properties": "7.1.0",
+    "@babel/preset-env": "7.1.0",
+    "@babel/preset-react": "7.0.0",
+    "babel-core": "7.0.0-bridge.0",
+    "jest": "23.6.0",
+    "react-testing-library": "5.2.3"
+  },
   "dependencies": {
     "jest": "^26.0.1"
   }
