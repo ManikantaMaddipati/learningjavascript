@@ -32,4 +32,5 @@ test('testing Property access error which must be null when accessing  the prope
 // })
 
 //we are running in node, window or document object present in node, jest framework provides it for us.
+//to run explicitly in node only- use : npm t -- --env=node
 console.log(window);
