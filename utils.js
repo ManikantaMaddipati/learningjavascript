@@ -30,18 +30,24 @@ function tetsing_inheritance() {
   return q;
 }
 
+//6.3.3:Property Access Errors
 function propertyAccessError() {
   let p = {};
   p.y=1;
   Object.defineProperty(p,'x',{ value:'1',writable:false})
   return p
 }
+//6.3.3:Property Access Errors :idiomatic expression works to prevent TypeError exceptions
+function propertyAccessErrorIdiomatic(I) {
+let Book = {"Name":"JavaScript","Rating":"5","AuthorFirstName":"David"}
+return Book;
+}
 
 function testingSetValuetoInheritedProperty() {
  let m = {x:1,y:2};
  let n = Object.create(m);
-  console.log(n.prototype.x);
-  return n
+ return Object.getPrototypeOf(n).x
+
  }
 
-export {getFormattedValue,testingObjectProps,tetsing_inheritance,propertyAccessError,testingSetValuetoInheritedProperty};
+export {getFormattedValue,testingObjectProps,tetsing_inheritance,propertyAccessError,testingSetValuetoInheritedProperty,propertyAccessErrorIdiomatic};
