@@ -40,6 +40,26 @@ test ("testpropertyAccessError",()=>{
 
 })
 
+//The rules that specify when a property assignment succeeds and when it fails
+test("rules for prop assignment", () =>{
+    //o has an own property p that is read-only: it is not possible to set read-only properties.
+    let o={};
+    Object.defineProperty(o,'x',{ value:'1',writable:false});
+    expect(()=>{o.x=3}).toThrow(TypeError);
+
+    //o has an inherited property p that is read-only: it is not possible to hide an
+    // inherited read-only property with an own property of the same name.
+    let a={};
+    Object.defineProperty(a,'x',{ value:'1',writable:false});
+    let b = Object.create(a)
+    expect(()=>{b.x=3}).toThrow(TypeError);
+
+    //o does not have an own property p; o does not inherit a property p with a setter method, and o’s extensible attributes is false.
+    // then no new properties can be defined on it.
+    let c={"y":1}
+    Object.preventExtensions(c);
+    expect(()=>{c.x = 3}).toThrow(TypeError);
+})
 
 
 //
