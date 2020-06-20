@@ -30,3 +30,6 @@ test('testing Property access error which must be null when accessing  the prope
 //     //expect().toBe(1);
 //     expect(w.x).toBe(5);
 // })
+
+//we are running in node, window or document object present in node, jest framework provides it for us.
+console.log(window);
