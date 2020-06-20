@@ -13,4 +13,35 @@ function getFormattedValue(value, language = 'en-US') {
   return formattedValue;
 }
 
-export {getFormattedValue};
+//when accessing unknown propes in object we get undefined
+function testingObjectProps(y) {
+  let x = Object.create({a:1})
+  return x.y
+}
+
+function tetsing_inheritance() {
+  let o = {};
+  o.x = 1;
+  let p = Object.create(o);
+  p.y=2;
+  let q = Object.create(p);
+  q.z=3;
+  let f= q.toString();
+  return q;
+}
+
+function propertyAccessError() {
+  let p = {};
+  p.y=1;
+  Object.defineProperty(p,'x',{ value:'1',writable:false})
+  return p
+}
+
+function testingSetValuetoInheritedProperty() {
+ let m = {x:1,y:2};
+ let n = Object.create(m);
+  console.log(n.prototype.x);
+  return n
+ }
+
+export {getFormattedValue,testingObjectProps,tetsing_inheritance,propertyAccessError,testingSetValuetoInheritedProperty};
