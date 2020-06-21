@@ -137,6 +137,38 @@ test("Serializing Objects", ()=> {
     console.log(p);
 })
 
+//6.9 Object Methods
+test("6.9 Object Methods", ()=> {
+    //toString
+    //By default : we get "[object Object]" , which is not useful so we define costume one
+    let o = {x: 1, y: {z: [false, null, ""]}}.toString();
+    console.log(o)
+
+    //adding costume tostring.
+    let point = {
+        x: 1,
+        y: 2,
+        toString: function() { return `(${this.x}, ${this.y})`; }
+    };
+    console.log(point.toString());
+
+
+    //toLocaleString():  return a localized string representation of the object
+    let pointlocal= {
+        x: 1000,
+        y: 2000,
+        toString: function() { return `(${this.x}, ${this.y})`; },
+        toLocaleString: function() {
+            return `(${this.x.toLocaleString()}, ${this.y.toLocaleString()})`;
+        }
+    };
+    pointlocal.toString()        // => "(1000, 2000)"
+    pointlocal.toLocaleString()  // => "(1,000, 2,000)": note thousands separators
+
+    //The valueOf() method is much like the toString() method, but it is called when JavaScript needs to convert an object to some primitive type other than a string—typically, a number. JavaScript calls this method
+
+})
+
 //
 //we are running in node, window or document object present in node, jest framework provides it for us.
 //to run explicitly in node only- use : npm t -- --env=node
