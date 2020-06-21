@@ -93,6 +93,26 @@ test("Testing Properties",()=>{{
     expect(o.propertyIsEnumerable("x") ).toBe(true)
 }})
 
+//6.6 Enumerating Properties
+
+test("6.6 Enumerating Properties" ,()=>{
+    let cat = {x:1,r:2,f:3}
+    for (let p in cat){
+        console.log(p)
+    }
+    expect(cat.propertyIsEnumerable(cat.toString())).toBe(false);
+
+    // Object.keys() returns an array of the names of the enumerable own properties of an object. It does not include non-enumerable properties, inherited properties, or properties whose name is a Symbol (see §6.10.3).
+    //
+    // Object.getOwnPropertyNames() works like Object.keys() but returns an array of the names of non-enumerable own properties as well, as long as their names are strings.
+    //
+    // Object.getOwnPropertySymbols() returns own properties whose names are Symbols, whether or not they are enumerable.
+    //
+    // Reflect.ownKeys() returns all own property names, both enumerable and non-enumerable, and both string and Symbol. (See §14.6.)
+})
+
+
+
 
 
 //
