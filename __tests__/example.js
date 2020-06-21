@@ -62,6 +62,32 @@ test("rules for prop assignment", () =>{
 })
 
 
+test (
+    "deleting Props from object" , ()=>{
+        let fruits = {"a":"1","b":"1","c":"2"};
+        delete fruits.c
+        expect(fruits.c).toBe(undefined);
+
+        //delete operator only deletes own properties, not inherited ones
+        // delete expression evaluates to true if the delete succeeded or if the delete had no effect
+
+        //every object has 3 flages : writable , enumerable , configurable
+        //configurable : attribute specifies whether the property can be deleted and whether its attributes can be altered.
+        //delete does not remove properties that have a configurable attribute of false
+        let l = {"y":"1"}
+        Object.defineProperty(l, "y", {
+            configurable: false
+        });
+        expect(delete l.y ).toThrow(TypeError);
+
+
+    }
+)
+
+
+
+
+
 //
 //we are running in node, window or document object present in node, jest framework provides it for us.
 //to run explicitly in node only- use : npm t -- --env=node
