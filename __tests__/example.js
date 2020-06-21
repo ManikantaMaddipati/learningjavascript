@@ -79,12 +79,19 @@ test (
             configurable: false
         });
         expect(delete l.y ).toThrow(TypeError);
-
-
     }
 )
 
-
+//6.5 Testing Properties
+test("Testing Properties",()=>{{
+    let o ={x:1};
+    //in return boolean
+    expect("x" in o).toBe(true)
+    //hasOwnProperty() return boolean
+    expect(o.hasOwnProperty("x")).toBe(true)
+    //propertyIsEnumerable() : property is an own property and its enumerable attribute is true
+    expect(o.propertyIsEnumerable("x") ).toBe(true)
+}})
 
 
 
