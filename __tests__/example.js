@@ -124,7 +124,18 @@ test("Extending Objects", ()=>{
 
 })
 
+//6.8 Serializing Objects
+test("Serializing Objects", ()=> {
+    let o = {x: 1, y: {z: [false, null, ""]}};
 
+    //JSON.stringify() : converts object to string  (JSON)
+    let s = JSON.stringify(o)
+    console.log(s);
+
+    //JSON.parse()  : converts string (JSON) to Object
+    let p = JSON.parse(s);
+    console.log(p);
+})
 
 //
 //we are running in node, window or document object present in node, jest framework provides it for us.
