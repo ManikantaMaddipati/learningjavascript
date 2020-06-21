@@ -111,7 +111,18 @@ test("6.6 Enumerating Properties" ,()=>{
     // Reflect.ownKeys() returns all own property names, both enumerable and non-enumerable, and both string and Symbol. (See §14.6.)
 })
 
+test("Extending Objects", ()=>{
+    let target = {x: 1}, source = {y: 2, z: 3};
 
+    Object.assign(target,source)
+    console.log(target)
+
+    //object override properties
+    source = {x: 2, z: 3};
+    Object.assign(target,source)
+    console.log(target)
+
+})
 
 
 
