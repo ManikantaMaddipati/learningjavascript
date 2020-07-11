@@ -238,6 +238,14 @@ function max(first=-Infinity, ...rest) {
     return maxValue;
 }
 
-test("rest parameter", ()=>{
-    expect(max(1, 10, 100, 2, 3, 1000, 4, 5, 6)).toBe(1000)
-})
+//8.3.4 The Spread Operator for Function Calls
+// This function takes a function and returns a wrapped version
+//The spread operator ... is used to unpack, or “spread out,” the elements of an array (or any other iterable object, such as strings)
+//in a context where individual values are expected.
+function add(x,y,z) {
+return x+y+z;
+}
+test("8.3.4 The Spread Operator for Function Calls", ()=>{
+    let toadd= [1,2,3]
+    expect(add(...toadd)).toBe(6)
+});
