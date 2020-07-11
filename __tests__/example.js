@@ -212,3 +212,32 @@ test("8.3.1 Optional Parameters and Defaults in ES6",()=>{
     expect(a[0]).toEqual("x");
     expect(getPropertyNamesES6(p, a)).toEqual(["x","y","z"]);
 })
+
+//8.3.2 Rest Parameters and Variable-Length Argument Lists
+// Parameter defaults enable us to write functions that can be invoked with fewer arguments than parameters.
+// Rest parameters enable the opposite case: they allow us to write functions that can be invoked with
+// arbitrarily more arguments than parameters
+
+//A rest parameter is preceded by three periods, and it must be the lastparameter in a function declaration.
+// When you invoke a function with a rest parameter, the arguments you pass are first assigned to the non-rest parameters,
+// and then any remaining arguments (i.e., the “rest”of the arguments) are stored in an array that becomes the value of therest
+// parameter. This last point is important: within the body of afunction,
+// the value of a rest parameter will always be an array. The array may be empty, but a rest parameter will never be undefined.
+
+// Don’t confuse the ... that defines a rest parameter in a function definition
+// with the ... spread operator, described in §8.3.4, which can be used in function invocations.
+function max(first=-Infinity, ...rest) {
+    let maxValue = first; // Start by assuming the first arg is biggest
+    // Then loop through the rest of the arguments, looking for bigger
+    for(let n of rest) {
+        if (n > maxValue) {
+            maxValue = n;
+        }
+    }
+    // Return the biggest
+    return maxValue;
+}
+
+test("rest parameter", ()=>{
+    expect(max(1, 10, 100, 2, 3, 1000, 4, 5, 6)).toBe(1000)
+})
