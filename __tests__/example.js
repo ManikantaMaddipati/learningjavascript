@@ -197,3 +197,18 @@ test("8.3.1 Optional Parameters and Defaults",()=>{
     // The programmer who calls your function cannot omit the first argument and pass the second:
     // they would have to explicitly pass undefined as the first argument.
 })
+
+//In ES6 and later, you can define a default value for each of your function parameters
+// directly in the parameter list of your function
+
+function getPropertyNamesES6(o, a = []) { //see default in parameter list
+    for(let property in o) a.push(property);
+    return a;
+}
+
+test("8.3.1 Optional Parameters and Defaults in ES6",()=>{
+    let o = {x: 1}, p = {y: 2, z: 3};  // Two objects for testing
+    let a = getPropertyNamesES6(o);
+    expect(a[0]).toEqual("x");
+    expect(getPropertyNamesES6(p, a)).toEqual(["x","y","z"]);
+})
