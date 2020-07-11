@@ -173,3 +173,27 @@ test("6.9 Object Methods", ()=> {
 //we are running in node, window or document object present in node, jest framework provides it for us.
 //to run explicitly in node only- use : npm t -- --env=node
 // console.log(window);
+
+//Funtions:
+//8.3 Function Arguments and Parameters
+//JavaScript function definitions do not specify an expected type for the function parameters,
+// and function invocations do not do any type checking on the argument values you pass
+// JavaScript function invocations do not even check the number of arguments being passed.
+
+//8.3.1 Optional Parameters and Defaults
+function getPropertyNames(o, a) {
+    if (a === undefined) a = [];  // If undefined, use a new array
+    for(let property in o) a.push(property);
+    return a;
+}
+test("8.3.1 Optional Parameters and Defaults",()=>{
+    let o = {x: 1}, p = {y: 2, z: 3};  // Two objects for testing
+    let a = getPropertyNames(o);
+    expect(a[0]).toEqual("x");// a == ["x"]; get o's properties in a new array
+    expect(getPropertyNames(p, a)).toEqual(["x","y","z"]); // a == ["x","y","z"]; add p's properties to it
+
+    // Note that when designing functions with optional arguments, you should be sure to put the optional ones
+    // at the end of the argument list so that they can be omitted.
+    // The programmer who calls your function cannot omit the first argument and pass the second:
+    // they would have to explicitly pass undefined as the first argument.
+})
