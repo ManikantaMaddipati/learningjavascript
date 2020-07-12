@@ -350,7 +350,7 @@ function checkscope() {
     function f() { return scope; }   // Return the value in scope here
     return f();
 }
-test("8.5 Functions as Namespaces",()=>{expect(
+test("8.6 Closures-1",()=>{expect(
     checkscope() ).
 toBe("local scope")}); // => "local scope"
 
@@ -366,7 +366,7 @@ function checkscope2() {
 }
              // What does this return?
 
-test("8.5 Functions as Namespaces",()=>{expect(
+test("8.6 Closures-2",()=>{expect(
     checkscope2()() ).  //Added namespaces.
 toBe("local scope")}); // => "local scope"
 //Remember the fundamental rule of lexical scoping:
@@ -376,3 +376,72 @@ toBe("local scope")}); // => "local scope"
 // So the last line of the preceding code example returns “local scope”, not “global scope”.
 // This, in a nutshell, is the surprising and powerful nature of closures:
 // they capture the local variable (and parameter) bindings of the outer function within which they are defined.
+
+let temp = function uniqueInteger2() {
+    let i = 0;
+   return  function f() {
+        return i++;
+    }
+}
+
+test("8.6 Closures-3",()=>{expect(
+    temp()()).  //Added namespaces.
+    toBe(0)},
+    ()=>{expect(temp()()).toBe(1)});
+
+
+
+//Private variables need not be exclusive to a single closure: it is perfectly possible for two or more nested functions to be defined
+// within the same outer function and share the same scope.
+
+function counterTest() {
+    let n = 0;
+    return {
+        count: function() { return n++; },
+        reset: function() { n = 0; }
+    };
+}
+
+
+test("8.6 Closures-4", () => {
+        expect(
+            counterTest().count()).  //Added namespaces.
+            toBe(0)
+    },
+    () => {
+        expect(counterTest().reset()).toBe(0)
+    },
+
+    () => {
+        expect(counterTest().count()).toBe(1)
+    },
+);
+
+function counter() {
+    let n = 0;
+    return {
+        count: function() { return n++; },
+        reset: function() { n = 0; }
+    };
+}
+c.count()                           // => 0
+d.count()                           // => 0: they count independently
+c.reset();                          // reset() and count() methods share state
+c.count()                           // => 0: because we reset c
+d.count()                           // => 1: d was not reset
+
+let c = counter(), d = counter();
+test("8.6 Closures-5", () => {
+        console.log(c.count())
+        console.log(d.count())
+        expect(
+            d.count()
+            ).  //Added namespaces.
+            toBe(2);}
+
+);
+//The counter() function returns a “counter” object. This object has two methods: count() returns the next integer,
+// and reset() resets the internal state. The first thing to understand is that the two methods share access to the private variable n.
+// The second thing to understand is that each invocation of counter() creates a new scope—independent of the scopes used by previous invocations—and
+// a new private variable within that scope. So if you call counter() twice, you get two counter objects with different private variables. Calling count() or reset()
+// on one counter object has no effect on the other.
