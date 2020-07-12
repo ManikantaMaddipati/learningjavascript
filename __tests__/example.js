@@ -314,3 +314,22 @@ function uniqueInteger() {
 }
 test("8.4.1 Defining Your Own Function Properties",()=>{expect(uniqueInteger()).toBe(0)});
 test("8.4.1 Defining Your Own Function Properties",()=>{expect(uniqueInteger()).toBe(1)});
+
+//8.5 Functions as Namespaces
+// Variables declared within a function are not visible outside of the function.
+//  For this reason, it is sometimes useful to define a function simply to act as a
+//  temporary namespace in which you can define variables without cluttering the global namespace.
+
+function chunkNamespace(x) {
+    // Chunk of code goes here
+    // Any variables defined in the chunk are local to this function
+    // instead of cluttering up the global namespace.
+
+    return x;
+}
+test("8.5 Functions as Namespaces",()=>{expect(chunkNamespace(2)).toBe(2)}); // But don't forget to invoke the function!
+
+(function() {  // chunkNamespace() function rewritten as an unnamed expression.
+    // Chunk of code goes here
+}());
+
