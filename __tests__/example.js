@@ -280,3 +280,37 @@ function sum(a) {
 test("8.3.6 Argument Types",()=>{expect(sum([1,2,3])).toBe(6)  }) // => 6
 test("8.3.6 Argument Types",()=>{expect(sum(1, 2, 3)).toThrowError(TypeError)});// !TypeError: 1 is not iterable
 test("8.3.6 Argument Types",()=>{expect(sum([1,2,"3"])).toThrowError(TypeError)}); // !TypeError: 1 is not iterable
+
+//8.4 Functions as Values
+//The most important features of functions are that they can be defined and invoked.
+//   Function definition and invocation are syntactic features of JavaScript and of most other programming languages
+// In JavaScript, however, functions are not only syntax but also values, which means they can be assigned to variables,
+// stored in the properties of objects or the elements of arrays, passed as arguments to functions, and so on
+
+//The name of a function is really immaterial; it is simply the name of a variable that refers to the function object.
+// The function can be assigned to another variable and still work the same way:
+
+function square(x) { return x*x; }
+let s = square;  // Now s refers to the same function that square does
+console.log(square(4))     // => 16
+console.log(s(4))             // => 16
+
+//8.4.1 Defining Your Own Function Properties
+//Functions are not primitive values in JavaScript, but a specialized kind of object,
+// which means that functions can have properties.
+// When a function needs a “static” variable whose value persists across invocations,
+// it is often convenient to use a property of the function itself. For example,
+// suppose you want to write a function that returns a unique integer whenever it is invoked.
+
+// Initialize the counter property of the function object.
+// Function declarations are hoisted so we really can
+// do this assignment before the function declaration.
+uniqueInteger.counter = 0;
+
+// This function returns a different integer each time it is called.
+// It uses a property of itself to remember the next value to be returned.
+function uniqueInteger() {
+    return uniqueInteger.counter++;  // Return and increment counter property
+}
+test("8.4.1 Defining Your Own Function Properties",()=>{expect(uniqueInteger()).toBe(0)});
+test("8.4.1 Defining Your Own Function Properties",()=>{expect(uniqueInteger()).toBe(1)});
