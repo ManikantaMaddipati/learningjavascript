@@ -249,3 +249,34 @@ test("8.3.4 The Spread Operator for Function Calls", ()=>{
     let toadd= [1,2,3]
     expect(add(...toadd)).toBe(6)
 });
+
+//8.3.5 Destructuring Function Arguments into Parameters
+//
+//
+
+//8.3.6 Argument Types
+//JavaScript method parameters have no declared types, and no type checking
+// is performed on the values you pass to a function.
+
+//JavaScript performs liberal type conversion as needed. So if you write a function that expects
+// a string argument and then call that function with a value of some other type,
+// the value you passed will simply be converted to a string when the function tries to use it as a string.
+// All primitive types can be converted to strings,
+// and all objects have toString() methods (if not necessarily useful ones), so an error never occurs in this case.
+
+//This is not always true, however. Consider again the arraycopy() method shown earlier.
+// So,it may be worth adding code to check the types of arguments like this
+
+function sum(a) {
+    let total = 0;
+    for(let element of a) { // Throws TypeError if a is not iterable
+        if (typeof element !== "number") {
+            throw new TypeError("sum(): elements must be numbers");
+        }
+        total += element;
+    }
+    return total;
+}
+test("8.3.6 Argument Types",()=>{expect(sum([1,2,3])).toBe(6)  }) // => 6
+test("8.3.6 Argument Types",()=>{expect(sum(1, 2, 3)).toThrowError(TypeError)});// !TypeError: 1 is not iterable
+test("8.3.6 Argument Types",()=>{expect(sum([1,2,"3"])).toThrowError(TypeError)}); // !TypeError: 1 is not iterable
