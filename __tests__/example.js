@@ -333,3 +333,46 @@ test("8.5 Functions as Namespaces",()=>{expect(chunkNamespace(2)).toBe(2)}); // 
     // Chunk of code goes here
 }());
 
+
+//8.6 Closures
+// Like most modern programming languages, JavaScript uses lexical scoping. This means that functions are executed using the
+// variable scope that was in effect when they were defined, not the variable scope that is in effect when they are invoked.
+//In order to implement lexical scoping, the internal state of a JavaScript function object must include not only the code
+//of the function but also a reference to the scope  in which the function definition appears.
+// This combination of a function object and a scope (a set of variable bindings) in which the function’s variables are resolved is called a closure in the computer science literature.
+
+
+//The checkscope() function declares a local variable and then defines and invokes a function that returns the value of that variable.
+// It should be clear to you why the call to checkscope() returns “local scope”.
+let scope = "global scope";          // A global variable
+function checkscope() {
+    let scope = "local scope";       // A local variable
+    function f() { return scope; }   // Return the value in scope here
+    return f();
+}
+test("8.5 Functions as Namespaces",()=>{expect(
+    checkscope() ).
+toBe("local scope")}); // => "local scope"
+
+//Now, let’s change the code just slightly.
+//Instead of invoking the nested function and returning its result, checkscope() now just returns the nested function object itself.
+// What happens when we invoke that nested function (with the second pair of parentheses in the last line of code)
+// outside of the function in which it was defined?
+let scope1 = "global scope";          // A global variable
+function checkscope2() {
+    let scope = "local scope";       // A local variable
+    function f() { return scope; }   // Return the value in scope here
+    return f;                        // REMOVED parentheses
+}
+             // What does this return?
+
+test("8.5 Functions as Namespaces",()=>{expect(
+    checkscope2()() ).  //Added namespaces.
+toBe("local scope")}); // => "local scope"
+//Remember the fundamental rule of lexical scoping:
+// JavaScript functions are executed using the scope they were defined in.
+// The nested function f() was defined in a scope where the variable scope was bound to the value “local scope”.
+// That binding is still in effect when f is executed, no matter where it is executed from.
+// So the last line of the preceding code example returns “local scope”, not “global scope”.
+// This, in a nutshell, is the surprising and powerful nature of closures:
+// they capture the local variable (and parameter) bindings of the outer function within which they are defined.
