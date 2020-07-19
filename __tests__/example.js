@@ -445,3 +445,25 @@ test("8.6 Closures-5", () => {
 // The second thing to understand is that each invocation of counter() creates a new scope—independent of the scopes used by previous invocations—and
 // a new private variable within that scope. So if you call counter() twice, you get two counter objects with different private variables. Calling count() or reset()
 // on one counter object has no effect on the other.
+
+//It is worth noting here that you can combine this closure technique with property getters and setters
+
+
+function counterTemp(n) {  // Function argument n is the private variable
+    return {
+        // Property getter method returns and increments private counter var.
+        get count() { return n++; },
+        // Property setter doesn't allow the value of n to decrease
+        set count(m) {
+            if (m > n) n = m;
+            else throw Error("count can only be set to a larger value");
+        }
+    };
+}
+
+test("8.6 Closures-6-setter and getters",()=>{
+    let c = counterTemp(1000)
+    expect(c.count).toBe(1000)
+    expect(c.count).toBe(1000+1)
+    c.
+})
