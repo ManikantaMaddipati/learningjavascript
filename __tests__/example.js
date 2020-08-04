@@ -465,5 +465,15 @@ test("8.6 Closures-6-setter and getters",()=>{
     let c = counterTemp(1000)
     expect(c.count).toBe(1000)
     expect(c.count).toBe(1000+1)
-    c.
+
 })
+
+//6.10.6 Property Getters and Setters
+//a getter and/or a setter. (Accessor properties are inherited)
+const random = {
+    dataProp: value,
+
+    // An accessor property defined as a pair of functions.
+    get accessorProp() { return this.dataProp; },
+    set accessorProp(value) { this.dataProp = value; }
+};
