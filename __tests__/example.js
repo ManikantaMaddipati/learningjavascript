@@ -424,11 +424,11 @@ function counter() {
         reset: function() { n = 0; }
     };
 }
-c.count()                           // => 0
-d.count()                           // => 0: they count independently
-c.reset();                          // reset() and count() methods share state
-c.count()                           // => 0: because we reset c
-d.count()                           // => 1: d was not reset
+// c.count()                           // => 0
+// d.count()                           // => 0: they count independently
+// c.reset();                          // reset() and count() methods share state
+// c.count()                           // => 0: because we reset c
+// d.count()                           // => 1: d was not reset
 
 let c = counter(), d = counter();
 test("8.6 Closures-5", () => {
@@ -470,10 +470,52 @@ test("8.6 Closures-6-setter and getters",()=>{
 
 //6.10.6 Property Getters and Setters
 //a getter and/or a setter. (Accessor properties are inherited)
-const random = {
-    dataProp: value,
+// const random = {
+//     dataProp: value,
+//
+//     // An accessor property defined as a pair of functions.
+//     get accessorProp() { return this.dataProp; },
+//     set accessorProp(value) { this.dataProp = value; }
+// };
 
-    // An accessor property defined as a pair of functions.
-    get accessorProp() { return this.dataProp; },
-    set accessorProp(value) { this.dataProp = value; }
-};
+// this example shows that : when closures inadvertently share access to a variable that they should not share
+// compare 2 example below:
+//example 1.
+function constFunc(v) {return () => v}
+
+
+let funcTest =[];
+for (var i = 0;i <10;i++){
+funcTest[i]=constFunc(i);
+}
+
+test("testing closures haywire",()=>{
+    expect(funcTest[5]()).toBe(5);
+})
+
+
+function constFunc2() {
+    //This code creates 10 closures and stores them in an array.
+    let funcTest = [];
+
+    //he closures are all defined within the same invocation of the function, so they share access to the variable i
+    for (var i = 0; i < 10; i++) {
+        funcTest[i] = () => i;
+    }
+    return funcTest;
+}
+
+test("testing closures haywire",()=>{
+    //When constfuncs2() returns, the value of the variable i is 10, and all 10 closures share this value.
+    // Therefore, all the functions in the returned array of functions return the same value, which is not what we wanted at all.
+    // It is important to remember that the scope associated with a closure is “live.”
+    // Nested functions do not make private copies of the scope or make static snapshots of the variable bindings.
+    expect(constFunc2()[5]()).toBe(10);
+
+    //How to address this issue?
+    //The code demonstrates a common category of bugs in ES5 and before, but the introduction of block-scoped variables in ES6 addresses the issue.
+    //If we just replace the "var" with a let or a const, then the problem goes away. Because let and const are block scoped,
+    //each iteration of the loop defines a scope that is independent of the scopes for all other iterations, and each of these scopes has its own independent binding of i.
+
+})
+
