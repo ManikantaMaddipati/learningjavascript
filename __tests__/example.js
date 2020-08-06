@@ -519,3 +519,22 @@ test("testing closures haywire",()=>{
 
 })
 
+//8.7 Function Properties, Methods, and Constructor
+//Since functions are objects, they can have properties and methods, just like any other object
+//8.7.1 The length Property: he number of parameters it declares in its parameter list, which is usually the number of arguments that the function expects. If a function has a rest parameter, that parameter is not counted for the purposes of this length property.
+//8.7.2 The name Property: specifies the name that wasused when the function was defined, if it was defined with a name, orthe name of the variable or property that an unnamed function expressionwas assigned to when it was first created.
+//8.7.3 The prototype Property: have a prototype property that refers to an object known as the prototype object. Every function has a different prototype object.
+//8.7.4 The call() and apply() and bind() :
+//8.7.6 The toString() Method: method return the complete source code for the function. Built-in functions typically return a string that includes something like “[native code]” as the function body
+//8.7.7 The Function() Constructor:  Function() constructor creates anonymous functions.
+//             const f = new Function("x", "y", "return x*y;"); is equivalent to  const f = function(x, y) { return x*y; };
+//             The Function() constructor expects any number of string arguments. The last argument is the text of the function body; it can contain arbitrary JavaScript statements, separated from each other by semicolons.
+//             very important point about the Function() constructor is that the functions it creates do not use lexical scoping; instead, they are always compiled as if they were top-level functions, as the following code demonstrates:
+let scope = "global";
+function constructFunction() {
+    let scope = "local";
+    return new Function("return scope");  // Doesn't capture local scope!
+}
+// This line returns "global" because the function returned by the
+// Function() constructor does not use the local scope.
+constructFunction()()  // => "global"
