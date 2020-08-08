@@ -61,3 +61,9 @@ test("8.6 Closures-3",()=>{expect(
       r.toString()).
         toBe("(1...3)")},
     );
+
+//This code defines a factory function range() for creating new Range objects.
+//It uses the methods property of this range() function as a convenient place to store the prototype object that defines the class.
+//The range.methods object uses the ES6 shorthand syntax for defining methods, which is why you don’t see the function keyword anywhere.
+//range.methods all use thefrom and to properties that were initialized in the range()factory function. In order to refer to them, they use the
+// this keyword to refer to the object through which they were invoked.
