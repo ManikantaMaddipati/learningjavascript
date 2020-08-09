@@ -67,3 +67,28 @@ test("8.6 Closures-3",()=>{expect(
 //The range.methods object uses the ES6 shorthand syntax for defining methods, which is why you don’t see the function keyword anywhere.
 //range.methods all use thefrom and to properties that were initialized in the range()factory function. In order to refer to them, they use the
 // this keyword to refer to the object through which they were invoked.
+
+
+//9.2 Classes and Constructors
+//Above example is without constructor.
+//A constructor is a function designed for the initialization of newly created objects
+//Constructors are invoked using the new keyword.
+//Constructor invocations differ from regular function and method invocations in their handling of arguments, invocation context, and return value.
+//The critical feature of constructor invocations is that the prototype property of the constructor is used as the prototype of the new object.
+//almost all objects have a prototype, only a few objects have a prototype property ::: it is function objects that have a prototype property.
+//This means that all objects created with the same constructor function inherit from the same object and are therefore members of the same class.
+
+function Range(from, to){
+    this.from=from;
+    this.to=to;
+}
+
+Range.prototype={
+    tgh: function() {
+        return "(" + this.from + "..." + this.to +")";
+    }
+}
+let x = new Range (2,4);
+test("testing class",()=>{
+    expect(x.tgh()).toBe("(2...4)")
+})
