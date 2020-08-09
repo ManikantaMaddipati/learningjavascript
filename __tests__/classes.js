@@ -92,3 +92,25 @@ let x = new Range (2,4);
 test("testing class",()=>{
     expect(x.tgh()).toBe("(2...4)")
 })
+
+//9.2.1 Constructors, Class Identity, and instanceof
+//Two objects are instances of the same class if and only if they inherit from the same prototype object.
+x instanceof Range   // => true: r inherits from Range.prototype
+//The instanceof operator was described in §4.9.4. The lefthand operand should be the object that is being tested,
+// and the righthand operand should be a constructor function that names a class.
+//Technically speaking, in the previous code example, the instanceof operator is not checking whether r was actually initialized by the Range constructor.
+// Instead, it is checking whether r inherits from Range.prototype. example
+//If we define a function Strange() and set its prototype to be the same as Range.prototype,
+//then objects created with new Strange() will count as Range objects as far as instanceof is concerned
+function Strange(){
+
+}
+Strange.prototype=Range.prototype
+let check= new Strange();
+test ("testing instanceof",()=>{
+    expect(check instanceof Range).toBe(true);
+})
+
+//If you want to test the prototype chain of an object for a specific prototype and do not want to use the constructor function as an intermediary or
+// to test prototype chain of an object that does not have constructor,  (so there is no way to use instanceof with that class)
+//we could test whether an object r was a member of that constructor-less class with isPrototypeOf() method.
