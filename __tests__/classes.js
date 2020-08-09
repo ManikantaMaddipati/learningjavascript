@@ -111,6 +111,52 @@ test ("testing instanceof",()=>{
     expect(check instanceof Range).toBe(true);
 })
 
-//If you want to test the prototype chain of an object for a specific prototype and do not want to use the constructor function as an intermediary or
-// to test prototype chain of an object that does not have constructor,  (so there is no way to use instanceof with that class)
-//we could test whether an object r was a member of that constructor-less class with isPrototypeOf() method.
+//9.3 Classes with the class Keyword.
+//If your class does not need to do any initialization, you can omit the constructor keyword and its body, and an empty constructor function will be implicitly created for you
+class HelloWorld {
+    constructor() {
+    }
+    xyz(){
+        return "Hello World"
+    }
+}
+
+let h = new HelloWorld();
+test ("testing class",()=>{
+    expect(h.xyz()).toBe("Hello World");
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
