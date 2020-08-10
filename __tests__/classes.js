@@ -162,6 +162,39 @@ class SaticRange {
 
 //9.3.2 Getters, Setters, and other Method Forms
 
+//9.3.3 Public, Private, and Static Fields
+//If you want to define a field (which is just an object-oriented synonym for “property”) on a class instance,
+// you must do that in the constructor function or in one of the methods.
+// And if you want to define a static field for a class, you must do that outside the class body.
+
+class Buffer {
+    constructor() {
+        this.size = 0;
+        this.capacity = 4096;
+        this.buffer = new Uint8Array(this.capacity);
+    }
+}
+
+//can be wriiten as :
+//The field initialization code has moved out of the constructor and now appears directly in the class body.
+// (That code is still run as part of the constructor, of course.If you do not define a constructor, the fields are initialized
+// as part of the implicitly created constructor.)
+class Buffer {
+    size = 0;   //this. prefixes that appeared on the lefthand side of the assignments are gone
+    capacity = 4096;
+    buffer = new Uint8Array(this.capacity);//but note that you still must use this. to refer to these fields, even on the righthand side of the initializer assignments
+}
+
+//private instance fields.
+//field will be usable (with the # prefix) within the class body but will be invisible and inaccessible (and therefore immutable) to any code outside of the class body
+//then define a getter function to provide read-only access to the value:
+class Buffer {
+    #size = 0;
+    get size() { return this.#size; }
+}
+//static keyword for fields
+//If you add static before a public or private field declaration, those fields will be created
+//as properties of the constructor function instead of properties of instances.
 
 
 
