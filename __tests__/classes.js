@@ -239,6 +239,14 @@ c.magnitude                    // => Math.hypot(2,3); use a getter function
 Complex.product(c, d)          // => new Complex(0, 13); a static method
 Complex.ZERO.toString()        // => "{0,0}"; a static property
 
+//9.4 Adding Methods to Existing Classes
+//JavaScript’s prototype-based inheritance mechanism is dynamic: an object inherits properties from its prototype,
+// even if the properties of the prototype change after the object is created.
+
+Complex.prototype.conj = function() { return new Complex(this.r, -this.i); };
+// even if the properties of the prototype change after the object is created.
+c.conj();
+
 
 
 
