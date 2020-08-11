@@ -196,7 +196,48 @@ class Buffer {
 //If you add static before a public or private field declaration, those fields will be created
 //as properties of the constructor function instead of properties of instances.
 
+//9.3.4 Example: A Complex Number Class
+class Complex {
+    constructor(real, imaginary) {
+        this.r = real;       // This field holds the real part of the number.
+        this.i = imaginary;  // This field holds the imaginary part.
+    }
+    plus(that) {
+        return new Complex(this.r + that.r, this.i + that.i);
+    }
+    times(that) {
+        return new Complex(this.r * that.r - this.i * that.i,
+            this.r * that.i + this.i * that.r);
+    }
+    static sum(c, d) { return c.plus(d); }
+    static product(c, d) { return c.times(d); }
 
+    get real() { return this.r; }
+    get imaginary() { return this.i; }
+    get magnitude() { return Math.hypot(this.r, this.i); }
+
+    toString() { return `{${this.r},${this.i}}`; }
+
+    equals(that) {
+        return that instanceof Complex &&
+            this.r === that.r &&
+            this.i === that.i;
+    }
+
+}
+
+Complex.ZERO = new Complex(0,0);
+Complex.ONE = new Complex(1,0);
+Complex.I = new Complex(0,1);
+
+let c = new Complex(2, 3);
+let d = new Complex(c.i, c.r);
+
+
+c.plus(d).toString()           // => "{5,5}"; use instance methods
+c.magnitude                    // => Math.hypot(2,3); use a getter function
+Complex.product(c, d)          // => new Complex(0, 13); a static method
+Complex.ZERO.toString()        // => "{0,0}"; a static property
 
 
 
