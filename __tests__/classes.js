@@ -248,10 +248,66 @@ Complex.prototype.conj = function() { return new Complex(this.r, -this.i); };
 c.conj();
 
 
+//9.5 Subclasses
+//9.5.2 Subclasses with extends and super
+class EZArray extends Array {
+    get first() { return this[0]; }
+    get last() { return this[this.length-1]; }
+}
+
+let a = new EZArray();
+a instanceof EZArray  // => true: a is subclass instance
+a instanceof Array    // => true: a is also a superclass instance.
+a.push(1,2,3,4);      // a.length == 4; we can use inherited methods
+a.pop()               // => 4: another inherited method
+a.first               // => 1: first getter defined by subclass
+a.last                // => 3: last getter defined by subclass
+a[1]                  // => 2: regular array access syntax still works.
+Array.isArray(a)      // => true: subclass instance really is an array
+EZArray.isArray(a)    // => true: subclass inherits static methods, too!
 
 
+class TypedMap extends Map {
+    constructor(keyType, valueType, entries) {
+        // If entries are specified, check their types
+        if (entries) {
+            for(let [k, v] of entries) {
+                if (typeof k !== keyType || typeof v !== valueType) {
+                    throw new TypeError(`Wrong type for entry [${k}, ${v}]`);
+                }
+            }
+        }
 
+        // Initialize the superclass with the (type-checked) initial entries
+        super(entries);
 
+        // And then initialize this subclass by storing the types
+        this.keyType = keyType;
+        this.valueType = valueType;
+    }
+
+    // Now redefine the set() method to add type checking for any
+    // new entries added to the map.
+    set(key, value) {
+        // Throw an error if the key or value are of the wrong type
+        if (this.keyType && typeof key !== this.keyType) {
+            throw new TypeError(`${key} is not of type ${this.keyType}`);
+        }
+        if (this.valueType && typeof value !== this.valueType) {
+            throw new TypeError(`${value} is not of type ${this.valueType}`);
+        }
+
+        // If the types are correct, we invoke the superclass's version of
+        // the set() method, to actually add the entry to the map. And we
+        // return whatever the superclass method returns.
+        return super.set(key, value);
+    }
+}
+
+//There are a few important rules that you will need to know about using super() in constructors:
+//If you define a class with the extends keyword, then the constructor for your class must use super() to invoke the superclass constructor.
+//If you don’t define a constructor in your subclass, one will be defined automatically for you.This implicitly defined constructor simply takes whatever values are passed to it and passes those values to super().
+//You may not use the this keyword in your constructor until after you have invoked the superclass constructor with super(). This enforces a rule that superclasses get to initialize themselves before subclasses do.
 
 
 
